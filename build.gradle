@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group = 'edu.mimuw.plugin'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+//    githubPackages
+}
+
+dependencies {
+    implementation 'edu.mimuw.sovaide:plugin-api:0.0.1-SNAPSHOT'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+}
+
+test {
+    useJUnitPlatform()
+}
