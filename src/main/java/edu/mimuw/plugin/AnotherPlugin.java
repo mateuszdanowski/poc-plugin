@@ -9,7 +9,7 @@ import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 
 public class AnotherPlugin implements PluginSova {
 	@Override
-	public void execute(ProjectRepository repository, GraphDBFacade graphDBFacade) {
+	public void execute(String projectId, ProjectRepository repository, GraphDBFacade graphDBFacade) {
 		System.out.println("Hello from AnotherPlugin!");
 		Project project = new Project();
 		project.setName("Project created by a plugin!");
