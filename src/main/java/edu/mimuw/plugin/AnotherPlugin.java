@@ -8,8 +8,24 @@ import edu.mimuw.sovaide.domain.plugin.PluginSova;
 import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 
 public class AnotherPlugin implements PluginSova {
+
 	@Override
-	public void execute(String projectId, ProjectRepository repository, GraphDBFacade graphDBFacade) {
+	public String getName() {
+		return "Mock project creator";
+	}
+
+	@Override
+	public String getType() {
+		return "INPUT";
+	}
+
+	@Override
+	public boolean isAcceptingFile() {
+		return false;
+	}
+
+	@Override
+	public void execute(String projectId, ProjectRepository repository, GraphDBFacade graphDBFacade, String fileUrl) {
 		System.out.println("Hello from AnotherPlugin!");
 		Project project = new Project();
 		project.setName("Project created by a plugin!");

@@ -14,7 +14,22 @@ import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 public class ExamplePlugin implements PluginSova {
 
 	@Override
-	public void execute(String projectId, ProjectRepository repository, GraphDBFacade graphDBFacade) {
+	public String getName() {
+		return "Imports relation creator";
+	}
+
+	@Override
+	public String getType() {
+		return "OUTPUT";
+	}
+
+	@Override
+	public boolean isAcceptingFile() {
+		return false;
+	}
+
+	@Override
+	public void execute(String projectId, ProjectRepository repository, GraphDBFacade graphDBFacade, String fileUrl) {
 		System.out.println("Hello from ExamplePlugin!");
 		graphDBFacade.createNode("ExampleNode", Map.of("prop1", "val1", "projectId", projectId));
 
