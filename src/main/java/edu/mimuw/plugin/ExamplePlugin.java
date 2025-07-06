@@ -8,6 +8,7 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
+import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
 import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 
@@ -29,7 +30,7 @@ public class ExamplePlugin implements PluginSova {
 	}
 
 	@Override
-	public void execute(String projectId, ProjectRepository repository, GraphDBFacade graphDBFacade, String fileUrl) {
+	public PluginResult execute(String projectId, ProjectRepository repository, GraphDBFacade graphDBFacade, String fileUrl) {
 		System.out.println("Hello from ExamplePlugin!");
 		graphDBFacade.createNode("ExampleNode", Map.of("prop1", "val1", "projectId", projectId));
 
@@ -80,5 +81,6 @@ public class ExamplePlugin implements PluginSova {
 				graphDBFacade.createEdge(entity, imported, "IMPORTS", Map.of());
 			});
 		});
+		return null;
 	}
 }

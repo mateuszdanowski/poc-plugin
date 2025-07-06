@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.model.Project;
+import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
 import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 
@@ -25,7 +26,7 @@ public class AnotherPlugin implements PluginSova {
 	}
 
 	@Override
-	public void execute(String projectId, ProjectRepository repository, GraphDBFacade graphDBFacade, String fileUrl) {
+	public PluginResult execute(String projectId, ProjectRepository repository, GraphDBFacade graphDBFacade, String fileUrl) {
 		System.out.println("Hello from AnotherPlugin!");
 		Project project = new Project();
 		project.setName("Project created by a plugin!");
@@ -36,5 +37,6 @@ public class AnotherPlugin implements PluginSova {
 		for (Project p : allProjects) {
 			System.out.println(" - " + p.getName() + " (ID: " + p.getId() + ") with " + p.getFiles().size() + " files");
 		}
+		return null;
 	}
 }
