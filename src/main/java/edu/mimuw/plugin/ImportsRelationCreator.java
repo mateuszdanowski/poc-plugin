@@ -12,7 +12,7 @@ import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
 import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 
-public class ExamplePlugin implements PluginSova {
+public class ImportsRelationCreator implements PluginSova {
 
 	@Override
 	public String getName() {
@@ -31,7 +31,7 @@ public class ExamplePlugin implements PluginSova {
 
 	@Override
 	public PluginResult execute(String projectId, ProjectRepository repository, GraphDBFacade graphDBFacade, String fileUrl) {
-		System.out.println("Hello from ExamplePlugin!");
+		System.out.println("Hello from ImportsRelationCreator!");
 		graphDBFacade.createNode("ExampleNode", Map.of("prop1", "val1", "projectId", projectId));
 
 		long count = graphDBFacade.findNodes("Entity", Map.of("projectId", projectId)).size();
