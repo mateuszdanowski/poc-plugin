@@ -4,6 +4,7 @@ import java.util.Map;
 
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
+import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
 import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
@@ -25,7 +26,10 @@ public class JarParsePlugin implements PluginSova {
 	}
 
 	@Override
-	public PluginResult execute(String projectId, ProjectRepository repository, GraphDBFacade graphDBFacade, String fileUrl) {
+	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, String fileUrl) {
+		ProjectRepository repository = dbInterfaces.repository();
+		GraphDBFacade graphDBFacade = dbInterfaces.graphDBFacade();
+
 		JarParseService jarParseService = new JarParseService(repository, graphDBFacade);
 
 		int filesProcessed = 0;

@@ -8,6 +8,7 @@ import edu.mimuw.sovaide.domain.graph.EdgeDirection;
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
 import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
+import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
 import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
@@ -30,7 +31,9 @@ public class VisualizerPlugin implements PluginSova {
 	}
 
 	@Override
-	public PluginResult execute(String projectId, ProjectRepository projectRepository, GraphDBFacade graphDBFacade, String filePath) {
+	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, String filePath) {
+		GraphDBFacade graphDBFacade = dbInterfaces.graphDBFacade();
+
 		List<GraphNode> entities = graphDBFacade.findNodes("Entity", Map.of("projectId", projectId));
 
 		// Prepare nodes for D3.js
