@@ -9,17 +9,17 @@ import com.github.javaparser.ast.ImportDeclaration;
 
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
-import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
 import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
+import edu.mimuw.sovaide.domain.plugin.UserInput;
 
-public class ImportsRelationCreator implements PluginSova {
+public class PackageImportRelationBuilder implements PluginSova {
 
 	@Override
 	public String getName() {
-		return "Imports relation creator";
+		return "Package import relation builder";
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class ImportsRelationCreator implements PluginSova {
 	}
 
 	@Override
-	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, String fileUrl) {
+	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, UserInput userInput) {
 		GraphDBFacade graphDBFacade = dbInterfaces.graphDBFacade();
 
 		// find all entities in the project

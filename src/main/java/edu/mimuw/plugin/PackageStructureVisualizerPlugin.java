@@ -7,17 +7,17 @@ import java.util.Map;
 import edu.mimuw.sovaide.domain.graph.EdgeDirection;
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
-import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
 import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
+import edu.mimuw.sovaide.domain.plugin.UserInput;
 
-public class VisualizerPlugin implements PluginSova {
+public class PackageStructureVisualizerPlugin implements PluginSova {
 
 	@Override
 	public String getName() {
-		return "Visualizer";
+		return "Package structure visualizer";
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class VisualizerPlugin implements PluginSova {
 	}
 
 	@Override
-	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, String filePath) {
+	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, UserInput userInput) {
 		GraphDBFacade graphDBFacade = dbInterfaces.graphDBFacade();
 
 		List<GraphNode> entities = graphDBFacade.findNodes("Entity", Map.of("projectId", projectId));

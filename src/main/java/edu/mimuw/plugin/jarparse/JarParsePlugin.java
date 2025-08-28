@@ -8,6 +8,7 @@ import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
 import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
+import edu.mimuw.sovaide.domain.plugin.UserInput;
 
 public class JarParsePlugin implements PluginSova {
 	@Override
@@ -26,11 +27,11 @@ public class JarParsePlugin implements PluginSova {
 	}
 
 	@Override
-	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, String fileUrl) {
+	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, UserInput userInput) {
 		ProjectRepository repository = dbInterfaces.repository();
-		GraphDBFacade graphDBFacade = dbInterfaces.graphDBFacade();
+		String fileUrl = userInput.fileUrl();
 
-		JarParseService jarParseService = new JarParseService(repository, graphDBFacade);
+		JarParseService jarParseService = new JarParseService(repository);
 
 		int filesProcessed = 0;
 		int entitiesCreated = 0;

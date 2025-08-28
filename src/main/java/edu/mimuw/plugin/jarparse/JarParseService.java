@@ -15,7 +15,6 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
 
-import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.model.Entity;
 import edu.mimuw.sovaide.domain.model.EntityKind;
 import edu.mimuw.sovaide.domain.model.File;
@@ -28,11 +27,9 @@ import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 public class JarParseService {
 
 	private final ProjectRepository projectRepository;
-	private final GraphDBFacade graphDBFacade;
 
-	public JarParseService(ProjectRepository projectRepository, GraphDBFacade graphDBFacade) {
+	public JarParseService(ProjectRepository projectRepository) {
 		this.projectRepository = projectRepository;
-		this.graphDBFacade = graphDBFacade;
 	}
 
 	public void parse(Project project, String localFilePath) {

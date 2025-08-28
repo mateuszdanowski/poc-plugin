@@ -8,6 +8,7 @@ import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
 import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
+import edu.mimuw.sovaide.domain.plugin.UserInput;
 
 public class AnotherPlugin implements PluginSova {
 
@@ -27,7 +28,7 @@ public class AnotherPlugin implements PluginSova {
 	}
 
 	@Override
-	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, String fileUrl) {
+	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, UserInput userInput) {
 		ProjectRepository repository = dbInterfaces.repository();
 
 		System.out.println("Hello from AnotherPlugin!");

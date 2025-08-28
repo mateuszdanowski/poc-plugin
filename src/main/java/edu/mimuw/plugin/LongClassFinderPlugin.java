@@ -8,24 +8,23 @@ import java.util.Map;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.nodeTypes.NodeWithName;
 
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
-import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
 import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
+import edu.mimuw.sovaide.domain.plugin.UserInput;
 
-public class LongClassAnalyzerPlugin implements PluginSova {
+public class LongClassFinderPlugin implements PluginSova {
 
 	private static final int LONG_CLASS_THRESHOLD = 1000;
 
 	@Override
 	public String getName() {
-		return "Long Class Analyzer";
+		return "Long class finder";
 	}
 
 	@Override
@@ -39,7 +38,7 @@ public class LongClassAnalyzerPlugin implements PluginSova {
 	}
 
 	@Override
-	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, String filePath) {
+	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, UserInput userInput) {
 		GraphDBFacade graphDBFacade = dbInterfaces.graphDBFacade();
 
 		List<GraphNode> entities = graphDBFacade.findNodes("Entity", Map.of("projectId", projectId));
