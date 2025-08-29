@@ -20,7 +20,7 @@ import edu.mimuw.sovaide.domain.plugin.UserInput;
 
 public class LongClassFinderPlugin implements PluginSova {
 
-	private static final int LONG_CLASS_THRESHOLD = 1000;
+	private static final String NUMBER_OF_LINES_THRESHOLD = "Number of lines threshold";
 
 	@Override
 	public String getName() {
@@ -38,8 +38,22 @@ public class LongClassFinderPlugin implements PluginSova {
 	}
 
 	@Override
+	public List<String> getStringInputs() {
+		return List.of(NUMBER_OF_LINES_THRESHOLD);
+	}
+
+	@Override
 	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, UserInput userInput) {
 		GraphDBFacade graphDBFacade = dbInterfaces.graphDBFacade();
+
+		int threshold;
+		try {
+			threshold = Integer.parseInt(
+					userInput.properties().getOrDefault(NUMBER_OF_LINES_THRESHOLD, "1000")
+			);
+		} catch (NumberFormatException e) {
+			threshold = 1000; // fallback default
+		}
 
 		List<GraphNode> entities = graphDBFacade.findNodes("Entity", Map.of("projectId", projectId));
 
@@ -61,7 +75,7 @@ public class LongClassFinderPlugin implements PluginSova {
 						totalClasses++;
 						int lineCount = countLines(content);
 
-						if (lineCount > LONG_CLASS_THRESHOLD) {
+						if (lineCount > threshold) {
 							longClassCount++;
 
 							String packageName = unit.getPackageDeclaration()
@@ -97,7 +111,7 @@ public class LongClassFinderPlugin implements PluginSova {
 		tableHtml.append("<h3 style='margin: 0; color: #666;'>Summary</h3>");
 		tableHtml.append("<p style='font-size: 18px; margin: 10px 0;'><strong>");
 		tableHtml.append(longClassCount).append("/").append(totalClasses);
-		tableHtml.append("</strong> classes are longer than ").append(LONG_CLASS_THRESHOLD).append(" lines</p>");
+		tableHtml.append("</strong> classes are longer than ").append(threshold).append(" lines</p>");
 
 		if (totalClasses > 0) {
 			double percentage = (double) longClassCount / totalClasses * 100;
@@ -109,7 +123,7 @@ public class LongClassFinderPlugin implements PluginSova {
 
 		if (!longClasses.isEmpty()) {
 			tableHtml.append("<h3 style='color: #333; margin-bottom: 15px;'>Classes with more than ")
-				.append(LONG_CLASS_THRESHOLD).append(" lines:</h3>");
+				.append(threshold).append(" lines:</h3>");
 			tableHtml.append("<table style='width: 100%; border-collapse: collapse; box-shadow: 0 2px 4px rgba(0,0,0,0.1);'>");
 			tableHtml.append("<thead>");
 			tableHtml.append("<tr style='background-color: #4CAF50; color: white;'>");
@@ -137,7 +151,7 @@ public class LongClassFinderPlugin implements PluginSova {
 			tableHtml.append("</table>");
 		} else {
 			tableHtml.append("<p style='color: #4CAF50; font-size: 16px; font-weight: bold;'>")
-				.append("Great! No classes exceed ").append(LONG_CLASS_THRESHOLD).append(" lines.</p>");
+				.append("Great! No classes exceed ").append(threshold).append(" lines.</p>");
 		}
 		tableHtml.append("</div>");
 

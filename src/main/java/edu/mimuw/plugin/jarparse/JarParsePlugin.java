@@ -1,5 +1,6 @@
 package edu.mimuw.plugin.jarparse;
 
+import java.util.List;
 import java.util.Map;
 
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
