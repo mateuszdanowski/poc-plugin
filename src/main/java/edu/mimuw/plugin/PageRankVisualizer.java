@@ -67,7 +67,8 @@ public class PageRankVisualizer implements PluginSova {
 				"width", 800,
 				"height", 600,
 				"nodeRadius", 5,
-				"linkStrength", Math.sqrt(2)
+				"linkStrength", Math.sqrt(2),
+				"pageRank", true
 		);
 
 		return new PluginResult(projectId, getName(), new GuiComponentData("D3Graph", graphData, config));

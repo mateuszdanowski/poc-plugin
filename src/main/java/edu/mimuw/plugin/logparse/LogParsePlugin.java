@@ -1,4 +1,4 @@
-package edu.mimuw.plugin;
+package edu.mimuw.plugin.logparse;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,8 +14,6 @@ import java.util.Optional;
 
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
-import edu.mimuw.sovaide.domain.model.Project;
-import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
 import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
