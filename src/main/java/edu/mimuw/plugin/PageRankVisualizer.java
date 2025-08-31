@@ -13,11 +13,12 @@ import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
 
-public class PackageStructureVisualizerPlugin implements PluginSova {
+public class PageRankVisualizer implements PluginSova {
+
 
 	@Override
 	public String getName() {
-		return "Package structure visualizer";
+		return "PageRank Visualizer";
 	}
 
 	@Override
@@ -34,25 +35,25 @@ public class PackageStructureVisualizerPlugin implements PluginSova {
 	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, UserInput userInput) {
 		GraphDBFacade graphDBFacade = dbInterfaces.graphDBFacade();
 
-		List<GraphNode> entities = graphDBFacade.findNodes("Entity", Map.of("projectId", projectId));
+		List<GraphNode> packages = graphDBFacade.findNodes("Package", Map.of("projectId", projectId));
 
 		// Prepare nodes for D3.js
-		List<Map<String, Object>> nodes = entities.stream()
-				.map(entity -> Map.of(
-						"id", entity.getId(),
-						"name", entity.getProperties().getOrDefault("fullClassName", "").toString(),
-						"packageName", entity.getProperties().getOrDefault("packageName", "")
-				))
-				.toList();
+		List<Map<String, Object>> nodes = packages.stream()
+				.map(pkg -> Map.of(
+						"id", pkg.getId(),
+						"name", pkg.getProperties().getOrDefault("name", "").toString(),
+						"pageRank", pkg.getProperties().getOrDefault("pagerank", "0.0"),
+						"quality", pkg.getProperties().getOrDefault("quality", "-1")
+				)).toList();
 
 		// Prepare edges for D3.js
 		List<Map<String, Object>> links = new ArrayList<>();
-		entities.forEach(entity -> {
-			graphDBFacade.getEdges(entity, "IMPORTS", EdgeDirection.OUTGOING).forEach(edge -> {
+		packages.forEach(pkg -> {
+			graphDBFacade.getEdges(pkg, "PACKAGE_IMPORTS", EdgeDirection.OUTGOING).forEach(edge -> {
 				links.add(Map.of(
 						"source", edge.getStartNode().getId(),
 						"target", edge.getEndNode().getId(),
-						"type", "imports"
+						"type", "package-imports"
 				));
 			});
 		});
