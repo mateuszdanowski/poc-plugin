@@ -13,9 +13,11 @@ import com.github.javaparser.ast.nodeTypes.NodeWithName;
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
+import edu.mimuw.sovaide.domain.plugin.FrontendComponentType;
 import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
+import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
 
 public class LongClassFinderPlugin implements PluginSova {
@@ -28,8 +30,8 @@ public class LongClassFinderPlugin implements PluginSova {
 	}
 
 	@Override
-	public String getType() {
-		return "OUTPUT";
+	public PluginType getType() {
+		return PluginType.OUTPUT;
 	}
 
 	@Override
@@ -156,7 +158,6 @@ public class LongClassFinderPlugin implements PluginSova {
 		tableHtml.append("</div>");
 
 		Map<String, Object> data = Map.of(
-			"type", "html",
 			"html", tableHtml.toString()
 		);
 
@@ -169,7 +170,7 @@ public class LongClassFinderPlugin implements PluginSova {
 			"overflow", "auto"
 		);
 
-		return new PluginResult(projectId, getName(), new GuiComponentData("Custom", data, config));
+		return new PluginResult(projectId, getName(), new GuiComponentData(FrontendComponentType.HTML, data, config));
 	}
 
 	private int countLines(String content) {

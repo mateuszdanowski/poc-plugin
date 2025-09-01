@@ -10,6 +10,7 @@ import edu.mimuw.sovaide.domain.graph.GraphNode;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
+import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
 
 public class MagnifyPlugin implements PluginSova {
@@ -19,8 +20,8 @@ public class MagnifyPlugin implements PluginSova {
 	}
 
 	@Override
-	public String getType() {
-		return "OUTPUT";
+	public PluginType getType() {
+		return PluginType.OUTPUT;
 	}
 
 	@Override
@@ -40,6 +41,7 @@ public class MagnifyPlugin implements PluginSova {
 		addClassPackageEdges(projectId, graphDBFacade, classes, packageByName);
 		addPackageImports(projectId, graphDBFacade);
 		addPageRank(projectId, graphDBFacade);
+		// todo add some output component
 		return null;
 	}
 

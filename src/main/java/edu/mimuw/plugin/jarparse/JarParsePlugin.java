@@ -1,14 +1,14 @@
 package edu.mimuw.plugin.jarparse;
 
-import java.util.List;
 import java.util.Map;
 
-import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
+import edu.mimuw.sovaide.domain.plugin.FrontendComponentType;
 import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
+import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
 
 public class JarParsePlugin implements PluginSova {
@@ -18,8 +18,8 @@ public class JarParsePlugin implements PluginSova {
 	}
 
 	@Override
-	public String getType() {
-		return "INPUT";
+	public PluginType getType() {
+		return PluginType.INPUT;
 	}
 
 	@Override
@@ -67,7 +67,6 @@ public class JarParsePlugin implements PluginSova {
 		summaryText.append("into the project structure for further analysis.");
 
 		Map<String, Object> data = Map.of(
-			"type", "text",
 			"text", summaryText.toString()
 		);
 
@@ -84,6 +83,6 @@ public class JarParsePlugin implements PluginSova {
 			)
 		);
 
-		return new PluginResult(projectId, getName(), new GuiComponentData("Custom", data, config));
+		return new PluginResult(projectId, getName(), new GuiComponentData(FrontendComponentType.Text, data, config));
 	}
 }

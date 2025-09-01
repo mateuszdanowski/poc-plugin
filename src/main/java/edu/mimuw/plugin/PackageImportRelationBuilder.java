@@ -10,9 +10,11 @@ import com.github.javaparser.ast.ImportDeclaration;
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
+import edu.mimuw.sovaide.domain.plugin.FrontendComponentType;
 import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
+import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
 
 public class PackageImportRelationBuilder implements PluginSova {
@@ -23,8 +25,8 @@ public class PackageImportRelationBuilder implements PluginSova {
 	}
 
 	@Override
-	public String getType() {
-		return "OUTPUT";
+	public PluginType getType() {
+		return PluginType.OUTPUT;
 	}
 
 	@Override
@@ -105,7 +107,6 @@ public class PackageImportRelationBuilder implements PluginSova {
 		summaryText.append("- Created import relationship edges between entities\n");
 
 		Map<String, Object> data = Map.of(
-				"type", "text",
 				"text", summaryText.toString()
 		);
 
@@ -122,6 +123,6 @@ public class PackageImportRelationBuilder implements PluginSova {
 				)
 		);
 
-		return new PluginResult(projectId, getName(), new GuiComponentData("Custom", data, config));
+		return new PluginResult(projectId, getName(), new GuiComponentData(FrontendComponentType.Text, data, config));
 	}
 }

@@ -3,8 +3,6 @@ package edu.mimuw.plugin;
 import java.util.List;
 import java.util.Map;
 
-import com.sun.jdi.LongValue;
-
 import edu.mimuw.sovaide.domain.graph.EdgeDirection;
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphEdge;
@@ -12,6 +10,7 @@ import edu.mimuw.sovaide.domain.graph.GraphNode;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
+import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
 
 public class PackageQualityPlugin implements PluginSova {
@@ -21,8 +20,8 @@ public class PackageQualityPlugin implements PluginSova {
 	}
 
 	@Override
-	public String getType() {
-		return "OUTPUT";
+	public PluginType getType() {
+		return PluginType.OUTPUT;
 	}
 
 	@Override

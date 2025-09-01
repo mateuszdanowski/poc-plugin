@@ -8,9 +8,11 @@ import edu.mimuw.sovaide.domain.graph.EdgeDirection;
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
+import edu.mimuw.sovaide.domain.plugin.FrontendComponentType;
 import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
+import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
 
 public class PackageStructureVisualizerPlugin implements PluginSova {
@@ -21,8 +23,8 @@ public class PackageStructureVisualizerPlugin implements PluginSova {
 	}
 
 	@Override
-	public String getType() {
-		return "OUTPUT";
+	public PluginType getType() {
+		return PluginType.OUTPUT;
 	}
 
 	@Override
@@ -69,6 +71,6 @@ public class PackageStructureVisualizerPlugin implements PluginSova {
 				"linkStrength", Math.sqrt(2)
 		);
 
-		return new PluginResult(projectId, getName(), new GuiComponentData("D3Graph", graphData, config));
+		return new PluginResult(projectId, getName(), new GuiComponentData(FrontendComponentType.Graph, graphData, config));
 	}
 }

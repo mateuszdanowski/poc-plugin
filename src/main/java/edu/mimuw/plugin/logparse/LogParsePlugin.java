@@ -15,9 +15,11 @@ import java.util.Optional;
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
+import edu.mimuw.sovaide.domain.plugin.FrontendComponentType;
 import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
+import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
 
 public class LogParsePlugin implements PluginSova {
@@ -27,8 +29,8 @@ public class LogParsePlugin implements PluginSova {
 	}
 
 	@Override
-	public String getType() {
-		return "INPUT";
+	public PluginType getType() {
+		return PluginType.INPUT;
 	}
 
 	@Override
@@ -67,7 +69,6 @@ public class LogParsePlugin implements PluginSova {
 
 			// Create the result with the log content as plain text
 			Map<String, Object> data = Map.of(
-				"type", "text",
 				"text", logContent
 			);
 
@@ -82,7 +83,7 @@ public class LogParsePlugin implements PluginSova {
 				"maxHeight", "600px"
 			);
 
-			return new PluginResult(projectId, getName(), new GuiComponentData("Custom", data, config));
+			return new PluginResult(projectId, getName(), new GuiComponentData(FrontendComponentType.Text, data, config));
 		} catch (IOException e) {
 			return createErrorResult(projectId, "Error reading log file: " + e.getMessage());
 		}
@@ -127,7 +128,6 @@ public class LogParsePlugin implements PluginSova {
 
 	private PluginResult createErrorResult(String projectId, String errorMessage) {
 		Map<String, Object> data = Map.of(
-			"type", "text",
 			"text", "ERROR: " + errorMessage
 		);
 
@@ -140,6 +140,6 @@ public class LogParsePlugin implements PluginSova {
 			"fontFamily", "Arial, sans-serif"
 		);
 
-		return new PluginResult(projectId, getName(), new GuiComponentData("Custom", data, config));
+		return new PluginResult(projectId, getName(), new GuiComponentData(FrontendComponentType.Text, data, config));
 	}
 }
