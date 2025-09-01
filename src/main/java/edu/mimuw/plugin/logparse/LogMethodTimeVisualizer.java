@@ -11,12 +11,12 @@ import java.util.regex.Pattern;
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
-import edu.mimuw.sovaide.domain.plugin.FrontendComponentType;
-import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
 import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
+import edu.mimuw.sovaide.domain.plugin.frontend.FrontendComponentType;
+import edu.mimuw.sovaide.domain.plugin.frontend.GuiComponentData;
 
 public class LogMethodTimeVisualizer implements PluginSova {
 	@Override
@@ -48,15 +48,6 @@ public class LogMethodTimeVisualizer implements PluginSova {
 		GraphNode logFile = logFileNodes.getFirst();
 
 		String logs = logFile.getProperties().get("content").toString();
-
-		String exampleLogs = """
-                2025-08-31T12:00:00.001Z [INFO] com.myapp.controller.UserController.registerUser
-                2025-08-31T12:00:00.005Z [INFO] com.myapp.service.UserService.createUser
-                2025-08-31T12:00:00.010Z [INFO] com.myapp.db.UserRepository.saveUser
-                2025-08-31T12:00:00.220Z [INFO] com.myapp.db.UserRepository.saveUser
-                2025-08-31T12:00:00.225Z [INFO] com.myapp.service.UserService.createUser
-                2025-08-31T12:00:00.230Z [INFO] com.myapp.service.EmailService.sendWelcomeEmail
-                """;
 
 		// Regex pattern
 		String regex = "^(?<timestamp>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+Z) \\[INFO\\] (?<class>[\\w\\.]+)$";

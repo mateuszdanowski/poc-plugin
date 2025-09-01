@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'edu.mimuw.sovaide:plugin-api:0.0.16-SNAPSHOT'
+    implementation 'edu.mimuw.sovaide:plugin-api:0.0.17-SNAPSHOT'
     implementation 'com.github.javaparser:javaparser-core:3.27.0'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'

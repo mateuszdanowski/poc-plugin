@@ -4,12 +4,12 @@ import java.util.Map;
 
 import edu.mimuw.sovaide.domain.model.repository.ProjectRepository;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
-import edu.mimuw.sovaide.domain.plugin.FrontendComponentType;
-import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
 import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
+import edu.mimuw.sovaide.domain.plugin.frontend.FrontendComponentType;
+import edu.mimuw.sovaide.domain.plugin.frontend.GuiComponentData;
 
 public class JarParsePlugin implements PluginSova {
 	@Override

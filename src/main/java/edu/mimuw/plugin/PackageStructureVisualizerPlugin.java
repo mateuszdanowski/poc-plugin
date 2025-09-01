@@ -8,12 +8,12 @@ import edu.mimuw.sovaide.domain.graph.EdgeDirection;
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
-import edu.mimuw.sovaide.domain.plugin.FrontendComponentType;
-import edu.mimuw.sovaide.domain.plugin.GuiComponentData;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
 import edu.mimuw.sovaide.domain.plugin.PluginSova;
 import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
+import edu.mimuw.sovaide.domain.plugin.frontend.FrontendComponentType;
+import edu.mimuw.sovaide.domain.plugin.frontend.GuiComponentData;
 
 public class PackageStructureVisualizerPlugin implements PluginSova {
 
