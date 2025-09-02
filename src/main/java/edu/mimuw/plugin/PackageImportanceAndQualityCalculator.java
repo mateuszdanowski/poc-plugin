@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import edu.mimuw.sovaide.domain.graph.EdgeDirection;
 import edu.mimuw.sovaide.domain.graph.GraphDBFacade;
+import edu.mimuw.sovaide.domain.graph.GraphEdge;
 import edu.mimuw.sovaide.domain.graph.GraphNode;
 import edu.mimuw.sovaide.domain.plugin.DatabaseInterfaces;
 import edu.mimuw.sovaide.domain.plugin.PluginResult;
@@ -13,10 +15,10 @@ import edu.mimuw.sovaide.domain.plugin.PluginSova;
 import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
 
-public class NodesImportanceCalculator implements PluginSova {
+public class PackageImportanceAndQualityCalculator implements PluginSova {
 	@Override
 	public String getName() {
-		return "Graph Nodes Importance Calculator";
+		return "Package Importance and Quality Calculator";
 	}
 
 	@Override
@@ -41,8 +43,42 @@ public class NodesImportanceCalculator implements PluginSova {
 		addClassPackageEdges(projectId, graphDBFacade, classes, packageByName);
 		addPackageImports(projectId, graphDBFacade);
 		addPageRank(projectId, graphDBFacade);
-		// todo add some output component
+		calculateQuality(projectId, graphDBFacade);
 		return null;
+	}
+
+	private void calculateQuality(String projectId, GraphDBFacade graphDBFacade) {
+		calculateEntitesLinesCount(projectId, graphDBFacade);
+
+		List<GraphNode> nodes = graphDBFacade.findNodes("Package", Map.of("projectId", projectId));
+
+		nodes.forEach(node -> {
+			List<GraphEdge> inPackage = graphDBFacade.getEdges(node, "IN_PACKAGE", EdgeDirection.INCOMING);
+			int numberOfClasses = inPackage.size();
+
+			if (numberOfClasses > 0) {
+				Long classesLinesOfCodeAvg = inPackage.stream()
+						.map(GraphEdge::getStartNode)
+						.mapToLong(n -> ((Number) n.getProperties()
+								.getOrDefault("linesOfCode", 0))
+								.longValue())
+						.sum() / numberOfClasses;
+
+				graphDBFacade.updateNode(node.getId(), Map.of("quality", classesLinesOfCodeAvg));
+			}
+		});
+	}
+
+	private void calculateEntitesLinesCount(String projectId, GraphDBFacade graphDBFacade) {
+		graphDBFacade.findNodes("Entity", Map.of("projectId", projectId)).forEach(entity -> {
+			String content = entity.getProperties().getOrDefault("content", "").toString();
+			int lineCount = content.split("\r\n|\r|\n").length;
+			saveLinesCount(graphDBFacade, entity, lineCount);
+		});
+	}
+
+	private void saveLinesCount(GraphDBFacade graphDBFacade, GraphNode entity, int lineCount) {
+		graphDBFacade.updateNode(entity.getId(), Map.of("linesOfCode", lineCount));
 	}
 
 	private void addPageRank(String projectId, GraphDBFacade graphDBFacade) {

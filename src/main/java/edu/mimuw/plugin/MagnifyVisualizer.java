@@ -19,7 +19,7 @@ public class MagnifyVisualizer implements PluginSova {
 
 	@Override
 	public String getName() {
-		return "Package-level Magnify-like Visualizer";
+		return "Magnify-like Visualizer";
 	}
 
 	@Override
