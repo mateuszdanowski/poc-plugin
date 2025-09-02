@@ -42,7 +42,6 @@ public class LogParser implements PluginSova {
 	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, UserInput userInput) {
 		String fileUrl = userInput.fileUrl();
 		GraphDBFacade facade = dbInterfaces.graphDBFacade();
-//		ProjectRepository repository = dbInterfaces.repository();
 
 		if (fileUrl == null || fileUrl.isEmpty()) {
 			return createErrorResult(projectId, "No file URL provided");

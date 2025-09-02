@@ -36,13 +36,12 @@ public class LogMethodTimeVisualizer implements PluginSova {
 
 	@Override
 	public PluginResult execute(String projectId, DatabaseInterfaces dbInterfaces, UserInput userInput) {
-		// Example multi-line log
 		GraphDBFacade facade = dbInterfaces.graphDBFacade();
 
 		List<GraphNode> logFileNodes = facade.findNodes("File", Map.of("projectId", projectId, "kind", "LOG_FILE"));
 
-		if (logFileNodes.size() != 1) {
-			throw new RuntimeException("Expected exactly one log file for project " + projectId);
+		if (logFileNodes.isEmpty()) {
+			throw new RuntimeException("No log file for project " + projectId);
 		}
 
 		GraphNode logFile = logFileNodes.getFirst();
