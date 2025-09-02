@@ -22,10 +22,10 @@ import edu.mimuw.sovaide.domain.plugin.UserInput;
 import edu.mimuw.sovaide.domain.plugin.frontend.FrontendComponentType;
 import edu.mimuw.sovaide.domain.plugin.frontend.GuiComponentData;
 
-public class LogParsePlugin implements PluginSova {
+public class LogParser implements PluginSova {
 	@Override
 	public String getName() {
-		return "Log Parse plugin";
+		return "Log Parser";
 	}
 
 	@Override

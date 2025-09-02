@@ -13,7 +13,7 @@ import edu.mimuw.sovaide.domain.plugin.PluginSova;
 import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
 
-public class PackageQualityPlugin implements PluginSova {
+public class PackageQualityCalculator implements PluginSova {
 	@Override
 	public String getName() {
 		return "Package Quality Calculator";

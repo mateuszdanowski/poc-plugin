@@ -17,11 +17,11 @@ import edu.mimuw.sovaide.domain.plugin.UserInput;
 import edu.mimuw.sovaide.domain.plugin.frontend.FrontendComponentType;
 import edu.mimuw.sovaide.domain.plugin.frontend.GuiComponentData;
 
-public class PackageImportRelationBuilder implements PluginSova {
+public class ClassesImportRelationBuilder implements PluginSova {
 
 	@Override
 	public String getName() {
-		return "Package import relation builder";
+		return "Classes Import Relation Builder";
 	}
 
 	@Override

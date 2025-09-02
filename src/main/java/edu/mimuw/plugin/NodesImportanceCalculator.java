@@ -13,10 +13,10 @@ import edu.mimuw.sovaide.domain.plugin.PluginSova;
 import edu.mimuw.sovaide.domain.plugin.PluginType;
 import edu.mimuw.sovaide.domain.plugin.UserInput;
 
-public class MagnifyPlugin implements PluginSova {
+public class NodesImportanceCalculator implements PluginSova {
 	@Override
 	public String getName() {
-		return "Graph nodes importance and quality calculator - Magnify plugin";
+		return "Graph Nodes Importance Calculator";
 	}
 
 	@Override
@@ -80,10 +80,6 @@ public class MagnifyPlugin implements PluginSova {
 				.stream()
 				.map(node -> node.getProperties().getOrDefault("packageName", "").toString())
 				.collect(Collectors.toSet());
-
-//		addClassPackageEdges(g, classes, packageByName);
-//		addPackageImports(g);
-//		addPageRank(g);
 	}
 
 	private Map<String, GraphNode> addPackageVertices(String projectId, GraphDBFacade graphDBFacade, Set<String> packageNames) {

@@ -11,10 +11,10 @@ import edu.mimuw.sovaide.domain.plugin.UserInput;
 import edu.mimuw.sovaide.domain.plugin.frontend.FrontendComponentType;
 import edu.mimuw.sovaide.domain.plugin.frontend.GuiComponentData;
 
-public class JarParsePlugin implements PluginSova {
+public class JarParser implements PluginSova {
 	@Override
 	public String getName() {
-		return "JarParsePlugin";
+		return "JAR Parser";
 	}
 
 	@Override

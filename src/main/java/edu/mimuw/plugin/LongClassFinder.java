@@ -20,13 +20,13 @@ import edu.mimuw.sovaide.domain.plugin.UserInput;
 import edu.mimuw.sovaide.domain.plugin.frontend.FrontendComponentType;
 import edu.mimuw.sovaide.domain.plugin.frontend.GuiComponentData;
 
-public class LongClassFinderPlugin implements PluginSova {
+public class LongClassFinder implements PluginSova {
 
 	private static final String NUMBER_OF_LINES_THRESHOLD = "Number of lines threshold";
 
 	@Override
 	public String getName() {
-		return "Long class finder";
+		return "Long Class Finder";
 	}
 
 	@Override
