@@ -43,8 +43,8 @@ public class MagnifyVisualizer implements PluginSova {
 				.map(pkg -> Map.of(
 						"id", pkg.getId(),
 						"name", pkg.getProperties().getOrDefault("name", "").toString(),
-						"pageRank", pkg.getProperties().getOrDefault("pagerank", "0.0"),
-						"quality", pkg.getProperties().getOrDefault("quality", "-1")
+						"size", pkg.getProperties().getOrDefault("pagerank", "0.0"),
+						"color", pkg.getProperties().getOrDefault("quality", "-1")
 				)).toList();
 
 		// Prepare edges for D3.js
@@ -68,8 +68,8 @@ public class MagnifyVisualizer implements PluginSova {
 				"width", 800,
 				"height", 600,
 				"nodeRadius", 5,
-				"linkStrength", Math.sqrt(2),
-				"pageRank", true
+				"linkStrength", Math.sqrt(2)
+//				"pageRank", true
 		);
 
 		return new PluginResult(projectId, getName(), new GuiComponentData(FrontendComponentType.Graph, graphData, config));
