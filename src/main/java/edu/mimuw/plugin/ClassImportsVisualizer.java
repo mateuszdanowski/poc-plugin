@@ -38,7 +38,6 @@ public class ClassImportsVisualizer implements PluginSova {
 
 		List<GraphNode> entities = graphDBFacade.findNodes("Entity", Map.of("projectId", projectId));
 
-		// Prepare nodes for D3.js
 		List<Map<String, Object>> nodes = entities.stream()
 				.map(entity -> Map.of(
 						"id", entity.getId(),
@@ -47,7 +46,6 @@ public class ClassImportsVisualizer implements PluginSova {
 				))
 				.toList();
 
-		// Prepare edges for D3.js
 		List<Map<String, Object>> links = new ArrayList<>();
 		entities.forEach(entity -> {
 			graphDBFacade.getEdges(entity, "IMPORTS", EdgeDirection.OUTGOING).forEach(edge -> {

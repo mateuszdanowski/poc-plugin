@@ -76,20 +76,11 @@ public class LogMethodTimeVisualizer implements PluginSova {
 			}
 		}
 
-		// Prepare data for BarChart component: { "methodA": 10, ... }
+		// Prepare data for BarChart component
 		Map<String, Object> chartData = new HashMap<>();
 		for (Map.Entry<String, Long> entry : classDurations.entrySet()) {
 			chartData.put(entry.getKey(), entry.getValue().intValue());
 		}
-//
-//		// Table config with style from LongClassFinder
-//		Map<String, Object> config = new HashMap<>();
-//		config.put("padding", "20px");
-//		config.put("border", "1px solid #ddd");
-//		config.put("borderRadius", "8px");
-//		config.put("backgroundColor", "#ffffff");
-//		config.put("minHeight", "200px");
-//		config.put("overflow", "auto");
 
 		return new PluginResult(projectId, getName(), new GuiComponentData(FrontendComponentType.BarChart, chartData, Map.of()));
 	}

@@ -51,10 +51,12 @@ public class ClassesImportRelationBuilder implements PluginSova {
 				CompilationUnit unit = StaticJavaParser.parse(content);
 
 				String packageName = unit.getPackageDeclaration().isPresent() ?
-						unit.getPackageDeclaration().get().getNameAsString() : "";
+						unit.getPackageDeclaration().get().getNameAsString() :
+						"";
 
 				String entityName = entity.getProperties().get("name").toString();
-				String fullClassName = unit.getTypes().stream().filter(t -> t.getName().asString().equals(entityName))
+				String fullClassName = unit.getTypes().stream()
+						.filter(t -> t.getName().asString().equals(entityName))
 						.map(decl -> decl.getFullyQualifiedName().orElse(""))
 						.findFirst().orElse("");
 
@@ -96,7 +98,6 @@ public class ClassesImportRelationBuilder implements PluginSova {
 			}
 		}
 
-		// Create summary text for the custom component
 		StringBuilder summaryText = new StringBuilder();
 		summaryText.append("Import Relations Creator - Execution Summary\n");
 		summaryText.append("============================================\n\n");
@@ -106,23 +107,14 @@ public class ClassesImportRelationBuilder implements PluginSova {
 		summaryText.append("- Updated all entities with package names and full class names\n");
 		summaryText.append("- Created import relationship edges between entities\n");
 
-		Map<String, Object> data = Map.of(
-				"text", summaryText.toString()
-		);
+		Map<String, Object> data = Map.of("text", summaryText.toString());
 
 		Map<String, Object> config = Map.of(
-				"padding", "20px",
-				"border", "1px solid #ccc",
-				"borderRadius", "5px",
-				"backgroundColor", "#f9f9f9",
-				"style", Map.of(
-						"fontFamily", "monospace",
-						"fontSize", "14px",
-						"lineHeight", "1.5",
-						"whiteSpace", "pre-wrap"
-				)
+			"padding", "20px",
+			"border", "1px solid #ccc",
+			"borderRadius", "5px",
+			"backgroundColor", "#f9f9f9"
 		);
-
 		return new PluginResult(projectId, getName(), new GuiComponentData(FrontendComponentType.Text, data, config));
 	}
 }

@@ -56,7 +56,6 @@ public class LogParser implements PluginSova {
 		GraphNode projectNode = projectOptional.get();
 
 		try {
-			// Read the log file content from the URL
 			String logContent = readFileContent(fileUrl);
 
 			GraphNode createdLogNode = facade.createNode("File", Map.of(
@@ -66,7 +65,6 @@ public class LogParser implements PluginSova {
 			));
 			facade.createEdge(projectNode, createdLogNode, "HAS", Map.of("projectId", projectId));
 
-			// Create the result with the log content as plain text
 			Map<String, Object> data = Map.of(
 				"text", logContent
 			);
@@ -93,7 +91,6 @@ public class LogParser implements PluginSova {
 
 		// Try to parse as URL first
 		try {
-			// Check if it's a valid URL
 			URL url = new URL(filePath);
 			try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
 				String line;
@@ -103,12 +100,12 @@ public class LogParser implements PluginSova {
 			}
 			return content.toString();
 		} catch (MalformedURLException e) {
-			// Not a valid URL, try as a file path
+			// try as a file path
 			try {
 				Path path = Paths.get(filePath);
 				return Files.readString(path);
 			} catch (IOException ioe) {
-				// If we got here, try one more approach with file:// protocol
+				// try one more approach with file:// protocol
 				try {
 					URL fileUrl = new File(filePath).toURI().toURL();
 					try (BufferedReader reader = new BufferedReader(new InputStreamReader(fileUrl.openStream()))) {

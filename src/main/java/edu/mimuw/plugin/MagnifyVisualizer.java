@@ -38,7 +38,6 @@ public class MagnifyVisualizer implements PluginSova {
 
 		List<GraphNode> packages = graphDBFacade.findNodes("Package", Map.of("projectId", projectId));
 
-		// Prepare nodes for D3.js
 		List<Map<String, Object>> nodes = packages.stream()
 				.map(pkg -> Map.of(
 						"id", pkg.getId(),
@@ -47,7 +46,6 @@ public class MagnifyVisualizer implements PluginSova {
 						"color", pkg.getProperties().getOrDefault("quality", "-1")
 				)).toList();
 
-		// Prepare edges for D3.js
 		List<Map<String, Object>> links = new ArrayList<>();
 		packages.forEach(pkg -> {
 			graphDBFacade.getEdges(pkg, "PACKAGE_IMPORTS", EdgeDirection.OUTGOING).forEach(edge -> {
@@ -69,7 +67,6 @@ public class MagnifyVisualizer implements PluginSova {
 				"height", 600,
 				"nodeRadius", 5,
 				"linkStrength", Math.sqrt(2)
-//				"pageRank", true
 		);
 
 		return new PluginResult(projectId, getName(), new GuiComponentData(FrontendComponentType.Graph, graphData, config));

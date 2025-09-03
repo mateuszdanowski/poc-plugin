@@ -82,7 +82,7 @@ public class PackageImportanceAndQualityCalculator implements PluginSova {
 	}
 
 	private void addPageRank(String projectId, GraphDBFacade graphDBFacade) {
-		// Create an in-memory graph from your stored nodes + relationships
+		// create an in-memory graph from stored nodes and relations
 		String createProjectionQuery = """
 				CALL gds.graph.project(
 				  'pageRankProjection',
@@ -93,7 +93,7 @@ public class PackageImportanceAndQualityCalculator implements PluginSova {
 
 		graphDBFacade.executeCypher(createProjectionQuery, Map.of());
 
-		// Calculate PageRank and write results back to the nodes
+		// calculate PageRank and write results back to the nodes
 		String pageRankQuery = """
 				CALL gds.pageRank.write('pageRankProjection', {
 				  writeProperty: 'pagerank'
@@ -103,7 +103,7 @@ public class PackageImportanceAndQualityCalculator implements PluginSova {
 
 		graphDBFacade.executeCypher(pageRankQuery, Map.of());
 
-		// Clean up the projection
+		// clean up the projection
 		String dropProjectionQuery = """
 				CALL gds.graph.drop('pageRankProjection')
 				""";
@@ -136,7 +136,6 @@ public class PackageImportanceAndQualityCalculator implements PluginSova {
 			if (!pkgName.isEmpty()) {
 				var outerPackage = packageByName.get(getPackageName(pkgName));
 				if (outerPackage == null) {
-//					log.error("Outer package not found for: {}", pkgName);
 					return;
 				}
 				graphDBFacade.createEdge(
@@ -159,7 +158,7 @@ public class PackageImportanceAndQualityCalculator implements PluginSova {
 	}
 
 	private void addPackageImports(String projectId, GraphDBFacade g) {
-		// Find all packages that contain classes and get their import relationships
+		// find all packages that contain classes and get their import relations
 		String cypher = """
 		        MATCH (pkg:Package {projectId: $projectId, pluginId: $pluginId})
 		        <-[:IN_PACKAGE {kind: 'class-package'}]-(cls:Entity)
