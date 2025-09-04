@@ -48,15 +48,12 @@ public class LogMethodTimeVisualizer implements PluginSova {
 
 		String logs = logFile.getProperties().get("content").toString();
 
-		// Regex pattern
 		String regex = "^(?<timestamp>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+Z) \\[INFO\\] (?<class>[\\w\\.]+)$";
 		Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
 
 		Matcher matcher = pattern.matcher(logs);
 
-		// Map to collect timestamps for each class
 		Map<String, List<Long>> classTimestamps = new HashMap<>();
-
 		while (matcher.find()) {
 			String timestamp = matcher.group("timestamp");
 			String className = matcher.group("class");
@@ -65,7 +62,6 @@ public class LogMethodTimeVisualizer implements PluginSova {
 			classTimestamps.computeIfAbsent(className, k -> new ArrayList<>()).add(millis);
 		}
 
-		// Map to store duration for each class
 		Map<String, Long> classDurations = new HashMap<>();
 		for (Map.Entry<String, List<Long>> entry : classTimestamps.entrySet()) {
 			List<Long> times = entry.getValue();
@@ -76,7 +72,6 @@ public class LogMethodTimeVisualizer implements PluginSova {
 			}
 		}
 
-		// Prepare data for BarChart component
 		Map<String, Object> chartData = new HashMap<>();
 		for (Map.Entry<String, Long> entry : classDurations.entrySet()) {
 			chartData.put(entry.getKey(), entry.getValue().intValue());
