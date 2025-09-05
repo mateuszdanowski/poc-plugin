@@ -62,13 +62,6 @@ public class ClassImportsVisualizer implements PluginSova {
 				"links", links
 		);
 
-		Map<String, Object> config = Map.of(
-				"width", 800,
-				"height", 600,
-				"nodeRadius", 5,
-				"linkStrength", Math.sqrt(2)
-		);
-
-		return new PluginResult(projectId, getName(), new GuiComponentData(FrontendComponentType.Graph, graphData, config));
+		return new PluginResult(projectId, getName(), new GuiComponentData(FrontendComponentType.Graph, graphData, Map.of()));
 	}
 }
